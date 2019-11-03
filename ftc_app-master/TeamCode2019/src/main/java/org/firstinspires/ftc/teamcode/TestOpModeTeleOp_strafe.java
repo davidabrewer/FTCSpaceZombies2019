@@ -80,20 +80,55 @@ public class TestOpModeTeleOp_strafe extends BaseOpMode
      */
     @Override
     public void loop() {
-strafeMode();
-        if(gamepad1.a)
+        double powerMultiplier=.75;
+        if(gamepad1.right_trigger>0.0D)
+        {
+            powerMultiplier=1.0;
+        }
+strafeMode(powerMultiplier);
+        if(gamepad2.left_stick_y!=0)
         {
             elevatorMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-            elevatorMotor.setPower(.2);
+            elevatorMotor.setPower(.7*gamepad2.left_stick_y);
         }
-        else if (gamepad1.b)
+        /*if(gamepad2.a)
+        {
+            elevatorMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+            elevatorMotor.setPower(.6);
+        }
+        else if (gamepad2.b)
         {
             elevatorMotor.setDirection(DcMotorSimple.Direction.REVERSE);
             elevatorMotor.setPower(.2);
+        }*/
+        else
+        {
+            elevatorMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+            elevatorMotor.setPower(.01);
+        }
+        armMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        armMotor.setPower(.3*gamepad2.right_stick_x);
+        /*if(gamepad2.x)
+        {
+            armMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+            armMotor.setPower(.2);
+        }
+        else if (gamepad2.y)
+        {
+            armMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+            armMotor.setPower(.2);
         }
         else
         {
-            elevatorMotor.setPower(0);
+            armMotor.setPower(0);
+        }*/
+        if (gamepad2.right_bumper)
+        {
+            clawServo.setPosition(1.0);
+        }
+        else if (gamepad2.left_bumper)
+        {
+            clawServo.setPosition(0.0);
         }
     }
 

@@ -53,7 +53,7 @@ import com.qualcomm.robotcore.util.Range;
  */
 
 @TeleOp(name="NearSide Autonomous Program", group="Linear Opmode")
-
+@Disabled
 public class TestOpMode_Linear extends LinearOpMode {
 
     // Declare OpMode members.

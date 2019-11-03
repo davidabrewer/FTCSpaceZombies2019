@@ -29,94 +29,69 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
+
 
 /**
- * This file contains an example of an iterative (Non-Linear) "OpMode".
- * An OpMode is a 'program' that runs in either the autonomous or the teleop period of an FTC match.
- * The names of OpModes appear on the menu of the FTC Driver Station.
- * When an selection is made from the menu, the corresponding OpMode
+ * This file contains an minimal example of a Linear "OpMode". An OpMode is a 'program' that runs in either
+ * the autonomous or the teleop period of an FTC match. The names of OpModes appear on the menu
+ * of the FTC Driver Station. When an selection is made from the menu, the corresponding OpMode
  * class is instantiated on the Robot Controller and executed.
  *
  * This particular OpMode just executes a basic Tank Drive Teleop for a two wheeled robot
- * It includes all the skeletal structure that all iterative OpModes contain.
+ * It includes all the skeletal structure that all linear OpModes contain.
  *
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Mecanum Round 1", group="Iterative Opmode")
 
-public class TestOpModeTeleOp extends BaseOpMode
-{
+@Autonomous(name="RedAutonomousNear", group="RedAutonomous")
+public class TestOpModeLinearA extends BaseLinearOpMode {
 
-    /*
-     * Code to run ONCE when the driver hits INIT
-     */
+
     @Override
-    public void init() {
+    public void runOpMode() {
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
 
-        this.initVariables();
-    }
+        initVariables();
+        //Open claw
+        openClaw();
+        //Move left to line up with block
+        move(1.0 ,Math.PI/2,300,false);
+        //Move forward to block
+        move(1.0,0,750,false);
+        //Close claw
+        closeClaw();
+        //Raise arm
+        moveVerticalArm(.4,300,true);
+        //Move backward
+        move(1.0,Math.PI,650,false);
+        //Strafe right under bridge _ this needs to increase about 25-40%
+        move(1.0,-Math.PI/2,2000,false);
+        //Open claw to drop block
+        openClaw();
+        //Strafe left to park under skybridge  This will need to be adjusted based on above
+        move(1.0,Math.PI/2,500,false);
 
-    /*
-     * Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
-     */
-    @Override
-    public void init_loop() {
-    }
+        /*move(1.0,0,1000,false);
+        sleep(1000);
+        rotate(1.0,100);
+        sleep(1000);
+        moveHorizontalArm(.2,500,true);
+        sleep(1000);
+        moveVerticalArm(.3,500,true);
+        sleep(1000);
+        openClaw();
+        sleep(1000);
+        closeClaw();*/
 
-    /*
-     * Code to run ONCE when the driver hits PLAY
-     */
-    @Override
-    public void start() {
-        runtime.reset();
-    }
-
-    /*
-     * Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
-     */
-    @Override
-    public void loop() {
-//TODO: Flip left stick directions
-//TODO: Reduce motor power
-        double Speed = gamepad1.right_stick_y;
-        double Turn = gamepad1.right_stick_x;
-        double Strafe = gamepad1.left_stick_x;
-        double MAX_SPEED = 0.45;
-        if(gamepad1.right_trigger>0.0D)
-        {
-            MAX_SPEED=1.0;
-        }
-        holonomic(Speed, Turn, Strafe, MAX_SPEED );
-        if(gamepad1.a)
-        {
-            elevatorMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-            elevatorMotor.setPower(.2);
-        }
-        else if (gamepad1.b)
-        {
-            elevatorMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-            elevatorMotor.setPower(.2);
-        }
-        else
-        {
-            elevatorMotor.setPower(0);
-        }
-    }
-
-    /*
-     * Code to run ONCE after the driver hits STOP
-     */
-    @Override
-    public void stop() {
-    }
-
+    }   //end copy
 }

@@ -29,15 +29,12 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
-import java.lang.Math;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -53,7 +50,7 @@ import java.lang.Math;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-public abstract class BaseOpMode extends OpMode
+public abstract class BaseLinearOpMode extends LinearOpMode
 {
     // Declare OpMode members.
     public ElapsedTime runtime = new ElapsedTime();
@@ -132,9 +129,9 @@ public abstract class BaseOpMode extends OpMode
 
     // Left and Right Strafes are reversed
 
-    public void strafeMode(double multiplier)
+    public void strafeMode()
     {
-        double r = Math.hypot(-gamepad1.left_stick_x, gamepad1.left_stick_y) *multiplier;
+        double r = Math.hypot(-gamepad1.left_stick_x, gamepad1.left_stick_y);
         double robotAngle = Math.atan2(gamepad1.left_stick_y, -gamepad1.left_stick_x) - Math.PI / 4;
         double rightX = gamepad1.right_stick_x;
         final double v1 = r * Math.cos(robotAngle) + rightX;
@@ -154,15 +151,17 @@ public abstract class BaseOpMode extends OpMode
     {
         ElapsedTime runtime = new ElapsedTime();
         double r = speed;
-        double robotAngle = direction;
+        double robotAngle = direction + Math.PI/4;
         double rightX = 0;
-        final double v1 = r * Math.cos(robotAngle) + rightX;
-        final double v2 = r * Math.sin(robotAngle) - rightX;
-        final double v3 = r * Math.sin(robotAngle) + rightX;
-        final double v4 = r * Math.cos(robotAngle) - rightX;
+        final double v1 = r * Math.cos(robotAngle) * -1;
+        final double v2 = r * Math.sin(robotAngle)* -1;
+        final double v3 = r * Math.sin(robotAngle)* -1;
+        final double v4 = r * Math.cos(robotAngle)* -1;
 
         runtime.reset();
+
         leftFrontDrive.setPower(v1);
+
         rightFrontDrive.setPower(v2);
         leftRearDrive.setPower(v3);
         rightRearDrive.setPower(v4);
@@ -178,7 +177,33 @@ public abstract class BaseOpMode extends OpMode
 
     }
 
-    public void rotate(double angle)
+    public void rotate(double speed, double time)
+    {
+        ElapsedTime runtime = new ElapsedTime();
+        double r = speed;
+
+        double rightX = 0;
+        final double v1 = r;
+        final double v2 = r * -1;
+        final double v3 = r ;
+        final double v4 = r * -1;
+
+        runtime.reset();
+
+        while(runtime.milliseconds()<time)
+        {
+            leftFrontDrive.setPower(v1);
+            rightFrontDrive.setPower(v2);
+            leftRearDrive.setPower(v3);
+            rightRearDrive.setPower(v4);
+        }
+        leftFrontDrive.setPower(0);
+        rightFrontDrive.setPower(0);
+        leftRearDrive.setPower(0);
+        rightRearDrive.setPower(0);
+    }
+
+    public void rotG(double speed, double angle)
     {
 
     }
@@ -218,8 +243,7 @@ public abstract class BaseOpMode extends OpMode
         {
             armMotor.setPower(speed);
         }
-        armMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        armMotor.setPower(0.01);
+        armMotor.setPower(0);
     }
 
     public void openClaw()
