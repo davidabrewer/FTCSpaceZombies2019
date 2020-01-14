@@ -31,11 +31,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 
 /**
@@ -52,9 +47,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  */
 
 
-@Autonomous(name="RedAutonomousNear", group="RedAutonomous")
+@Autonomous(name="TestGyroMove", group="RedAutonomous")
 @Disabled
-public class TestOpModeLinearA extends BaseLinearOpMode {
+public class TestGyroMove extends BaseLinearOpMode {
 
 
     @Override
@@ -62,37 +57,11 @@ public class TestOpModeLinearA extends BaseLinearOpMode {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
+
         initVariables();
-        //Open claw
-        openClaw();
-        //Move left to line up with block
-        move(1.0 ,Math.PI/2,300,false);
-        //Move forward to block
-        move(1.0,0,750,false);
-        //Close claw
-        closeClaw();
-        //Raise arm
-        moveVerticalArm(.4,300,true);
-        //Move backward
-        move(1.0,Math.PI,650,false);
-        //Strafe right under bridge _ this needs to increase about 25-40%
-        move(1.0,-Math.PI/2,2000,false);
-        //Open claw to drop block
-        openClaw();
-        //Strafe left to park under skybridge  This will need to be adjusted based on above
-        move(1.0,Math.PI/2,500,false);
+        //Move right to get under bridge
+        moveGyro(1.0, 0, 4000, false);
 
-        /*move(1.0,0,1000,false);
-        sleep(1000);
-        rotate(1.0,100);
-        sleep(1000);
-        moveHorizontalArm(.2,500,true);
-        sleep(1000);
-        moveVerticalArm(.3,500,true);
-        sleep(1000);
-        openClaw();
-        sleep(1000);
-        closeClaw();*/
 
-    }   //end copy
+    }
 }

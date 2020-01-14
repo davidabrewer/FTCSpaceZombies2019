@@ -80,10 +80,13 @@ public class TestOpModeTeleOp_strafe extends BaseOpMode
      */
     @Override
     public void loop() {
-        double powerMultiplier=.75;
+        double powerMultiplier=1.0;
+        telemetry.addData("Encoder:",elevatorMotor.getCurrentPosition());
+
+        telemetry.update();
         if(gamepad1.right_trigger>0.0D)
         {
-            powerMultiplier=1.0;
+            powerMultiplier=.75;
         }
 strafeMode(powerMultiplier);
         if(gamepad2.left_stick_y!=0)

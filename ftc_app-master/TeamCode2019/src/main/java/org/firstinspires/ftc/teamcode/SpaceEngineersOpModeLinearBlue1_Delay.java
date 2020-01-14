@@ -30,6 +30,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 
 /**
@@ -47,6 +48,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 
 @Autonomous(name="BlueNearWait", group="RedAutonomous")
+@Disabled
 public class SpaceEngineersOpModeLinearBlue1_Delay extends BaseLinearOpMode {
 
 
@@ -56,26 +58,29 @@ public class SpaceEngineersOpModeLinearBlue1_Delay extends BaseLinearOpMode {
         telemetry.update();
 
         initVariables();
+        waitForStart();
         sleep(10000);
+        //Open claw
+
         //Open claw
         openClaw();
         //Move left to line up with block
         move(1.0 ,-Math.PI/2,300,false);
         //Move forward to block
-        move(1.0,0,750,false);
+        move(1.0,0,1150,false);
         //Close claw
         closeClaw();
         //Raise arm
         moveVerticalArm(.4,300,true);
         //Move backward
-        move(1.0,Math.PI,650,false);
+        move(1.0,Math.PI,1050,false);
         //Strafe right under bridge _ this needs to increase about 25-40%
-        rotate(1.0,300);
-        move(1.0,0,2500,false);
+        rotate(1.0,720);
+        move(1.0,0,3000,false);
         //Open claw to drop block
         openClaw();
         //Strafe left to park under skybridge  This will need to be adjusted based on above
-        move(1.0,Math.PI,900,false);
+        move(1.0,Math.PI,1000,false);
 
         /*move(1.0,0,1000,false);
         sleep(1000);

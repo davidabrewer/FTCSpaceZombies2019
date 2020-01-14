@@ -30,6 +30,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 
 /**
@@ -47,6 +48,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 
 @Autonomous(name="RedNearWait", group="RedAutonomous")
+@Disabled
 public class SpaceEngineersOpModeLinearRed1_Delay extends BaseLinearOpMode {
 
 
@@ -56,6 +58,7 @@ public class SpaceEngineersOpModeLinearRed1_Delay extends BaseLinearOpMode {
         telemetry.update();
 
         initVariables();
+        waitForStart();
         sleep(10000);
         //Open claw
         openClaw();

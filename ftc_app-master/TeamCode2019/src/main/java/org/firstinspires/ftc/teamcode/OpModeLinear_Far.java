@@ -53,7 +53,7 @@ import com.qualcomm.robotcore.util.Range;
  */
 
 @TeleOp(name="FarSide Autonomous Program", group="Linear Opmode")
-
+@Disabled
 public class OpModeLinear_Far extends LinearOpMode {
 
     // Declare OpMode members.

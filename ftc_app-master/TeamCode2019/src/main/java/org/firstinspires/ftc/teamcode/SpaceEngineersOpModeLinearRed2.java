@@ -46,7 +46,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
  */
 
 
-@Autonomous(name="RedBridgePark", group="RedAutonomous")
+@Autonomous(name="RightTurnPark", group="RedAutonomous")
 public class SpaceEngineersOpModeLinearRed2 extends BaseLinearOpMode {
 
 
@@ -57,6 +57,7 @@ public class SpaceEngineersOpModeLinearRed2 extends BaseLinearOpMode {
 
 
         initVariables();
+        waitForStart();
         //Move right to get under bridge
         move(1.0, -Math.PI / 2, 400, false);
 

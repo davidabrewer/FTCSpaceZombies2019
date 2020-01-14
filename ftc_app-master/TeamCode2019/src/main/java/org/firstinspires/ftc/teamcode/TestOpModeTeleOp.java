@@ -52,6 +52,7 @@ import com.qualcomm.robotcore.util.Range;
  */
 
 @TeleOp(name="Mecanum Round 1", group="Iterative Opmode")
+@Disabled
 
 public class TestOpModeTeleOp extends BaseOpMode
 {
